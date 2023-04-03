@@ -1,0 +1,8 @@
+#%Policy Definition 0.1
+name: Custom Flex Gateway Policy
+description: Example custom policy for Flex Gateway.
+category: Transformation
+providedCharacteristics: []
+requiredCharacteristics: []
+interfaceScope: ["api", "resource"]
+interfaceTransformation: []
