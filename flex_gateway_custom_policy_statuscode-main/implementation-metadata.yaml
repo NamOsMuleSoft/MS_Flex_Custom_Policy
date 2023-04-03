@@ -1,0 +1,5 @@
+#%Policy Implementation 1.0
+minRuntimeVersion: 1.0.0
+maxRuntimeVersion: 2.0.0
+technology: flexGateway
+name: Custom Flex Gateway Policy Status Code
