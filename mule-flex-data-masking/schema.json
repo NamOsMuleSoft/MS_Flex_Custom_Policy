@@ -1,0 +1,21 @@
+{
+  "title": "Custom Data Masking",
+  "type": "object",
+  "description": "Replaces an attribute in the JSON response body, masking its value.",
+  "properties": {
+    "field-name": {
+      "title": "Custom Data Masking Field",
+      "type": "string"
+    }
+  },
+  "required": [
+    "field-name"
+  ],
+  "unevaluatedProperties": false,
+  "@context": {
+    "@vocab": "anypoint://vocabulary/policy.yaml#",
+    "security": "anypoint://vocabulary/policy.yaml#"
+  },
+  "$id": "custom-data-masking-simple",
+  "$schema": "https://json-schema.org/draft/2019-09/schema"
+}

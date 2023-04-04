@@ -21,6 +21,6 @@ cargo install wasm-gc
 
 Run the optimization by executing the following command. This is the file that you need to publish to Exchange.
 ```
-wasm-gc target/wasm32-unknown-unknown/release/flex_custom_policy.wasm -o target/flex_custom_policy-final.wasm
+wasm-gc target/wasm32-unknown-unknown/release/flex_custom_policy_status_code.wasm -o target/flex_custom_policy_status_code.wasm
 ```
 
