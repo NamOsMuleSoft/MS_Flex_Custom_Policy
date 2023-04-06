@@ -50,7 +50,7 @@ impl HttpContext for HttpConfigHeader {
             info!("on_http_response_body wait read body");
             let body_str = String::from_utf8(body_bytes).unwrap();
             let body_str_new = transform (body_str,String::from(self.field_name.as_mut()));
-            info!("Version 1.0.1");
+            info!("Version 1.0.2");
             info!("New body is {}",body_str_new);
             self.set_http_response_body(0, _body_size, &body_str_new.into_bytes());            
         }
@@ -62,7 +62,7 @@ fn transform (input: String, field: String) -> String {
    info!("transform function");    
    let mut v: Value = serde_json::from_str(input.as_str()).unwrap();
    if let Some(_field_value) = v.get(field.as_str()) {
-        let my_string = String::from(std::iter::repeat('x').take(_field_value.to_string().len()-2).collect::<String>());
+        let my_string = String::from(std::iter::repeat('#').take(_field_value.to_string().len()-2).collect::<String>());
         v[field] = serde_json::Value::String(my_string.to_owned());
    }
    return v.to_string();
