@@ -1,0 +1,54 @@
+{
+  "type": "object",
+  "title": "Azure Application Insights",
+  "description": "Azure Application Insights",
+  "properties": {
+    "azureRegion": {
+      "type": "string",
+      "title": "Azure Region",
+      "enum": [
+        "West Europe",
+        "East US" 
+      ]
+    },
+    "apiKey": {
+      "type": "string",
+      "title": "API Key",
+      "description": "Azure Application API Key",
+      "@context": {
+        "@characteristics": [
+          "security:sensitive"
+        ]
+      }
+    },
+    "instrumentationKey": {
+      "type": "string",
+      "title": "Instrumentation Key",
+      "description": "Azure Application Insights Instrumentation Key"
+    },
+    "requestIdHeader": {
+      "type": "string",
+      "title": "Request Id Header Name",
+      "default": "x-request-id"
+    },
+    "correlationIdHeader": {
+      "type": "string",
+      "title": "Correlation Id Header Name",
+      "default": "x-correlation-id"
+    }
+  },
+  "required": [
+    "azureRegion",
+    "apiKey",
+    "instrumentationKey",
+    "requestIdHeader",
+    "correlationIdHeader"
+  ],
+  "unevaluatedProperties": false,
+  "@context": {
+    "@vocab": "anypoint://vocabulary/policy.yaml#",
+    "security": "anypoint://vocabulary/policy.yaml#"
+  },
+  "$id": "azure_application_insights",
+  "$schema": "https://json-schema.org/draft/2019-09/schema"
+}

@@ -1,0 +1,28 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+---
+apiVersion: gateway.mulesoft.com/v1alpha1
+kind: ApiInstance
+metadata:
+  name: ingress-http
+spec:
+  address: http://0.0.0.0:8081
+  services:
+    upstream:
+      address: http://backend/
+      routes:
+        - config:
+            destinationPath: /
+  policies:
+    - policyRef:
+        name: azure-application-insights
+      config:
+        apiKey: 8eizaqhxtg7rc4aotqljtvh48zjzytseovgnhrls
+        instrumentationKey: f0d629a0-6d5b-4c4e-8840-53516a0ca98c
+        correlationIdHeader: x-correlation-id
+---
+apiVersion: gateway.mulesoft.com/v1alpha1
+kind: Service
+metadata:
+  name: applicationinsights
+spec:
+  address:  https://eastus-8.in.applicationinsights.azure.com/v2/track

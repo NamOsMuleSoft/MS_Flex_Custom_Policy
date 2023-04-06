@@ -1,0 +1,9 @@
+#%Policy Definition 0.1
+name: Azure Application Insights
+description: Instruments Azure Application Insights request tracking.
+category: Monitoring
+providedCharacteristics: []
+requiredCharacteristics: []
+interfaceScope: ["api", "resource"]
+interfaceTransformation: []
+applicable: true

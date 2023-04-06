@@ -1,0 +1,9 @@
+.vscode
+.DS_Store
+.sfdx
+
+target/*
+test/config/custom-policies/*
+test/connected/*
+
+registration.yaml
