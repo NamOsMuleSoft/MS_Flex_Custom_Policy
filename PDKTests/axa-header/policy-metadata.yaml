@@ -1,0 +1,9 @@
+#%Policy Definition 0.1
+name: axa-header
+description: axa context header policy
+category: Transformation
+providedCharacteristics: []
+requiredCharacteristics: []
+interfaceScope: ["api", "resource"]
+interfaceTransformation: []
+applicable: true

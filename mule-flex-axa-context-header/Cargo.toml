@@ -1,0 +1,19 @@
+[package]
+name = "axa_context_header_policy"
+version = "0.1.0"
+edition = "2021"
+authors = ["Nam Ton That <ntonthat@mulesoft.com>"]
+description = "Example custom policy for MuleSoft Flex Gateway"
+
+[lib]
+crate-type = ["cdylib"]
+name="axa_context_header_policy"
+path="src/lib.rs"
+
+[dependencies]
+proxy-wasm = { git = "https://github.com/proxy-wasm/proxy-wasm-rust-sdk.git", tag = "v0.2.1" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+log = "0.4"
+jwt-simple = "0.11.6"
+base64 = "0.12"

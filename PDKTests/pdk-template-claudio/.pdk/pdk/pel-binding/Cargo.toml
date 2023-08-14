@@ -1,0 +1,28 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[package]
+name = "pel-binding"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "Apache-2.0"
+keywords = ["pel", "wasm"]
+categories = ["wasm"]
+
+[lib]
+crate-type = ["rlib"]
+doctest = false
+
+[dependencies]
+thiserror = "1.0"
+classy = { path = "../classy", package = "classy" }
+pdk_core = { path = "../pdk-core", package = "pdk-core" }
+pel = { path = "../pel", package = "pel" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+url = "2.2"
+getrandom = { version = "0.2", features = ["custom"] }
+oorandom = "11.1.3"
+
+[dev-dependencies]
+mockall = "0.11.0"
+rmp-serde = "1.0"

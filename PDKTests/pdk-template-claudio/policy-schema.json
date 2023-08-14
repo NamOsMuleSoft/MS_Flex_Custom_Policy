@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "title": "{{ policy-title }}",
+  "description": "{{ description }}",
+  {% if useconfig -%}
+  "properties": {
+    "headerName": {
+      "type": "string",
+      "title": "Header Name",
+      "description": "Specify the header name",
+      "default": "custom"
+    },
+    "expectedHeaders": {
+      "type": "number",
+      "title": "Expected headers",
+      "description": "Specify the expected headers",
+      "default": 1
+    },
+  },
+  "required": ["headerName", "expectedHeaders"],
+  {% endif -%}
+  "unevaluatedProperties": false,
+  "@context": {
+    "@vocab": "anypoint://vocabulary/policy.yaml#",
+    "security": "anypoint://vocabulary/policy.yaml#"
+  },
+  "$id": "{{ project-name }}",
+  "$schema": "https://json-schema.org/draft/2019-09/schema"
+}

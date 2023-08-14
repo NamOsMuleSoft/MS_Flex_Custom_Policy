@@ -1,0 +1,13 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[package]
+name = "pdk"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+classy = { path = "../classy", package = "classy" }
+pdk_core = { path = "../pdk-core", package = "pdk-core" }
+pdk_macros = { path = "../pdk-macros", package = "pdk-macros" }
+pel_binding = { path = "../pel-binding", package = "pel-binding" }

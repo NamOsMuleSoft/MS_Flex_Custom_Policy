@@ -1,0 +1,28 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+---
+# This descriptor is used in local mode to describe how shape of configuration of the policy needs to be.
+apiVersion: gateway.mulesoft.com/v1alpha1
+kind: Extension
+metadata:
+  name: axa-header
+spec:
+  extends:
+    - name: extension-definition
+    - name: envoy-filter
+    - name: proxy-wasm-filter
+  properties:
+    headerName:
+      type: string
+    expectedHeaders:
+      type: number
+      default: 1
+    #Required fields for wasm based policies
+    rootId:
+      type: string
+      default: main
+    implementation:
+      type: string
+      default: base64://<ENCODED>
+  required:
+    - headerName
+    - expectedHeaders

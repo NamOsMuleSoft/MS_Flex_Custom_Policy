@@ -1,0 +1,27 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[template]
+cargo_generate_version = ">=0.10.0"
+ignore = [
+    ".git",
+    ".github",
+    ".idea"
+]
+
+[placeholders.useconfig]
+type    = "bool"
+prompt  = "Does your policy need external configuration? (true/false)"
+default = true
+
+ignore = [
+    ".devcontainer/",
+    ".vscode/launch.json",
+    ".vscode/tasks.json",
+    "docs/",
+    "scripts/",
+    ".dockerignore",
+    ".gitpod.Dockerfile",
+    ".gitpod.yml",
+]
+
+[hooks]
+post = ["post-script.rhai"]

@@ -1,0 +1,11 @@
+#%Policy Definition 0.1
+name: Validate Request Size
+description: Validate that request size is not bigger than configuration.
+category: Security
+providedCharacteristics:
+  - Requires authentication
+requiredCharacteristics: []
+interfaceScope: ["api", "resource"]
+interfaceTransformation: []
+encryptionSupported: true
+violationCategory: authentication

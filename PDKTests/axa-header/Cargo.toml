@@ -1,0 +1,19 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[package]
+name = "axa_header"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+pdk = { path = ".pdk/pdk/pdk" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", default-features = false, features = ["alloc"] }
+anyhow = "1.0.64"
+
+jwt-simple = "0.11.6"
+base64 = "0.12"
+
+[lib]
+crate-type = ["cdylib"]

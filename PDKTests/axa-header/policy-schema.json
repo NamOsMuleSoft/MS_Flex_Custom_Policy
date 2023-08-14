@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "title": "axa-header",
+  "description": "axa context header policy",
+  "properties": {
+    "headerName": {
+      "type": "string",
+      "title": "Header Name",
+      "description": "Specify the header name",
+      "default": "custom"
+    },
+    "expectedHeaders": {
+      "type": "number",
+      "title": "Expected headers",
+      "description": "Specify the expected headers",
+      "default": 1
+    }
+  },
+  "required": ["headerName", "expectedHeaders"],
+  "unevaluatedProperties": false,
+  "@context": {
+    "@vocab": "anypoint://vocabulary/policy.yaml#",
+    "security": "anypoint://vocabulary/policy.yaml#"
+  },
+  "$id": "axa-header",
+  "$schema": "https://json-schema.org/draft/2019-09/schema"
+}

@@ -1,0 +1,9 @@
+#%Policy Definition 0.1
+name: {{ policy-title }}
+description: {{ description }}
+category: Transformation
+providedCharacteristics: []
+requiredCharacteristics: []
+interfaceScope: ["api", "resource"]
+interfaceTransformation: []
+applicable: true

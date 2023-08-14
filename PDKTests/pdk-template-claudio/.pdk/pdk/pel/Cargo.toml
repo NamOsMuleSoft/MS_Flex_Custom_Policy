@@ -1,0 +1,19 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[package]
+name = "pel"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license = "Apache-2.0"
+keywords = ["pel", "wasm"]
+categories = ["wasm"]
+
+[lib]
+crate-type = ["rlib"]
+doctest = false
+
+[dependencies]
+thiserror = { workspace = true }
+getrandom = { workspace = true }
+serde_json = { workspace = true }
+uuid = "1.1.2"

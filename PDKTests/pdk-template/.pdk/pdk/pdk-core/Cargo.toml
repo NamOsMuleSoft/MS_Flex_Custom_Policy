@@ -1,0 +1,30 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[package]
+name = "pdk-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+classy = { path = "../classy", package = "classy" }
+pdk-macros = { path = "../pdk-macros", package = "pdk-macros" }
+anyhow = "1.0"
+bitflags = "1.2.1"
+serde = { version = "1.0", features = ["derive", "rc"] }
+serde_derive = "1.0"
+serde_json = { workspace = true }
+rmp-serde = "1.0.0"
+lazy_static = "1.4.0"
+url = "2.2"
+log = { workspace = true }
+
+[dev-dependencies]
+byteorder = "1.4.3"
+mockall = "0.11.0"
+serial_test = "0.5.1"
+test-case = "1.2.1"
+version-sync = "0.9"

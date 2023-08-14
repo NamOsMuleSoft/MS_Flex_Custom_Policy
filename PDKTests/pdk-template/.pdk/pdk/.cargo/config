@@ -1,0 +1,22 @@
+[alias]
+"build:wasm"   = ["build",   "--target", "wasm32-unknown-unknown"]
+"check:wasm"   = ["check",   "--target", "wasm32-unknown-unknown"]
+"doc:wasm"     = ["doc",     "--target", "wasm32-unknown-unknown"]
+"publish:wasm" = ["publish", "--target", "wasm32-unknown-unknown"]
+
+"build:wasi"   = ["build",   "--target", "wasm32-wasi"]
+"check:wasi"   = ["check",   "--target", "wasm32-wasi"]
+"doc:wasi"     = ["doc",     "--target", "wasm32-wasi"]
+"publish:wasi" = ["publish", "--target", "wasm32-wasi"]
+
+# To be able to run unit tests on macOS, support compilation to 'x86_64-apple-darwin'.
+[target.'cfg(target_vendor = "apple")']
+rustflags = ["-C", "link-args=-Wl,-undefined,dynamic_lookup"]
+
+# To be able to run unit tests on Linux, support compilation to 'x86_64-unknown-linux-gnu'.
+[target.'cfg(target_os = "linux")']
+rustflags = ["-C", "link-args=-Wl,--warn-unresolved-symbols"]
+
+# To be able to run unit tests on Windows, support compilation to 'x86_64-pc-windows-msvc'.
+[target.'cfg(target_os = "windows")']
+rustflags = ["-C", "link-args=/FORCE"]

@@ -1,0 +1,19 @@
+# Copyright 2023 Salesforce, Inc. All rights reserved.
+[package]
+name = "classy"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lib]
+crate-type = ["rlib"]
+
+[dependencies]
+proxy-wasm = { workspace = true }
+futures = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+logtest = "2.0.0"

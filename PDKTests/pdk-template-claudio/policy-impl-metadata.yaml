@@ -1,0 +1,5 @@
+#%Policy Implementation 1.0
+name: {{ policy-title }}
+technology: flexGateway
+minRuntimeVersion: 1.0.0
+maxRuntimeVersion: 2.0.0

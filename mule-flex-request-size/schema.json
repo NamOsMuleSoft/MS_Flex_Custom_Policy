@@ -1,0 +1,21 @@
+{
+  "title": "Validate Request Size",
+  "type": "object",
+  "description": "Maximum size in ko.",
+  "properties": {
+    "field-name": {
+      "title": "Maximum size of the request in ko.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "field-name"
+  ],
+  "unevaluatedProperties": false,
+  "@context": {
+    "@vocab": "anypoint://vocabulary/policy.yaml#",
+    "security": "anypoint://vocabulary/policy.yaml#"
+  },
+  "$id": "validate-request-size",
+  "$schema": "https://json-schema.org/draft/2019-09/schema"
+}
