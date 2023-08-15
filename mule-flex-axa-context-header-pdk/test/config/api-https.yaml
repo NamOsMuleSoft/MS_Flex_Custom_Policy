@@ -14,7 +14,7 @@ spec:
             destinationPath: /anything/echo/
   policies:
     - policyRef:
-        name: axa-context-header-policy-https
+        name: axa-context-header-policy
       config:
         issuer: "The Issuer"
         privateKey: |
