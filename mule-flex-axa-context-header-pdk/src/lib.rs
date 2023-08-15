@@ -40,9 +40,7 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
 
     // Use case 5
     // If the input is client certificate, update the client_id claim with the cert subject
-    if let Some(subject) = get_mtls_context_subject() {
-        claims.custom.initial_client_id = subject;
-    }
+    update_with_mtls_context(&mut claims);
 
     // generate the axa-context token from resulting claims
     let token = generate_jwt(claims, &config.private_key);
@@ -51,15 +49,13 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
 }
 
 
-fn get_mtls_context_subject() -> Option<String> {
+fn update_with_mtls_context(claims: &mut JWTClaims<JwtClaims>) {
     let conn_props = <dyn PolicyContext>::default().connection_properties();
 
     // if mTLS context is present then initialize the client_id with the cert subject CN
     if let Some(subject) = conn_props.read_property(&["connection","subject_peer_certificate"]) {
-        return Some(String::from_utf8(subject).unwrap());
+        claims.custom.initial_client_id = String::from_utf8(subject).unwrap();
     };
-    
-    None
 }
 
 // generate claims payload from the request access token or default

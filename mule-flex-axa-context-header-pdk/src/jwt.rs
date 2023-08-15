@@ -9,22 +9,22 @@ pub struct AccessTokenPayload {
     pub iss: String,
     pub jti: String,
     #[serde(rename = "axa-department")]
-    pub axa_department: String,
+    pub axa_department: Option<String>,
     pub sub: String,
     #[serde(rename = "preferredLanguage")]
-    pub preferred_language: String,
+    pub preferred_language: Option<String>,
     #[serde(rename = "axa-company")]
-    pub axa_company: String,
+    pub axa_company: Option<String>,
     #[serde(rename = "axa-companyOU")]
-    pub axa_company_ou: String,
-    pub name: String,
-    pub given_name: String,
-    pub member_of: String,
-    pub family_name: String,
-    pub iat: i64,
-    pub email: String,
+    pub axa_company_ou: Option<String>,
+    pub name: Option<String>,
+    pub given_name: Option<String>,
+    pub member_of: Option<String>,
+    pub family_name: Option<String>,
+    pub iat: Option<u64>,
+    pub email: Option<String>,
     #[serde(rename = "axa-upn")]
-    pub axa_upn: String,
+    pub axa_upn: Option<String>,
     pub exp: i64,
     pub part_nr_ansp_person: Option<String>,
     #[serde(rename = "pi.sri")]
@@ -43,27 +43,30 @@ pub struct Actor {
     pub client_id: String
 }
 
-#[derive(Debug, Deserialize, Serialize, Default)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct JwtClaims {
     #[serde(rename = "iss")]
     pub issuer: String,
     
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "sub")]
-    pub subject_id: String,
+    pub subject_id: Option<String>,
     
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "domain")]
-    pub subject_domain: String,
+    pub subject_domain: Option<String>,
 
-    #[serde(skip_serializing_if = "String::is_empty")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "initialSub")]
-    pub initial_subject: String,
+    pub initial_subject: Option<String>,
     
-    #[serde(skip_serializing_if = "String::is_empty")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "domain")]
-    pub initial_domain: String,
+    pub initial_domain: Option<String>,
     
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "iat")]
-    pub issued_at: u64,
+    pub issued_at: Option<u64>,
     
     #[serde(rename = "exp")]
     pub expiration: u64,
@@ -76,9 +79,9 @@ pub struct JwtClaims {
     
     pub initial_client_id: String,
 
-    #[serde(skip_serializing_if = "String::is_empty")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     #[serde(rename = "amr")]
-    pub authentication_method: String,
+    pub authentication_method: Option<String>,
     
     #[serde(skip_serializing_if = "Option::is_none")]
     pub part_nr_ansp_person: Option<String>,
@@ -95,16 +98,38 @@ pub struct JwtClaims {
     pub actor: Option<Actor>
 }
 
+impl Default for JwtClaims {
+    fn default() -> Self {
+        Self { 
+            issuer: String::from("MS_FLEX"),
+            subject_id: Default::default(),
+            subject_domain: Default::default(),
+            initial_subject: Default::default(),
+            initial_domain: Default::default(),
+            issued_at: Default::default(),
+            expiration: Default::default(),
+            custom_data: Default::default(),
+            context_version: String::from("1.0"),
+            initial_client_id: Default::default(),
+            authentication_method: Default::default(),
+            part_nr_ansp_person: Default::default(),
+            pi_sri: Default::default(),
+            part_nr_org: Default::default(), 
+            actor: Default::default() 
+        }
+    }
+}
+
 
 impl JwtClaims {
     pub fn from_access_token_payloads(access_payload: AccessTokenPayload) -> Self {
         Self {
             issuer: "MS_FLEX".to_string(),
-            subject_id: access_payload.sub.clone(),
-            subject_domain: String::default(), // Set appropriately if needed
-            initial_subject: String::default(), // Set appropriately if needed
-            initial_domain: String::default(), // Set appropriately if needed
-            issued_at: access_payload.iat as u64,
+            subject_id: Some(access_payload.sub.clone()),
+            subject_domain: None, // Set appropriately if needed
+            initial_subject: None, // Set appropriately if needed
+            initial_domain: None, // Set appropriately if needed
+            issued_at: access_payload.iat,
             expiration: access_payload.exp as u64,
             custom_data: Some(CustomData {
                 scope: access_payload.scope
@@ -112,7 +137,7 @@ impl JwtClaims {
             }),
             context_version: "1.0".to_string(), // Set appropriately if needed
             initial_client_id: access_payload.client_id, // Set appropriately if needed
-            authentication_method: String::default(), 
+            authentication_method: None, 
             part_nr_ansp_person: access_payload.part_nr_ansp_person,
             pi_sri: access_payload.pi_sri,
             part_nr_org: access_payload.part_nr_org, // Set appropriately if needed
