@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "1c4e51c4-c3ca-4a3f-a5c8-cddd90897563",
+		"name": "AXA - Context Header POC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22122790"
+	},
+	"item": [
+		{
+			"name": "Use Case 1 - No User Mapping",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6InFYckRhaTZsSmx4ZW9XYnlfTGlwM3JiMEpscyIsInBpLmF0bSI6Ims2MjMifQ.eyJzY29wZSI6ImF4YS1jaF9vcGVuYXBpX3RyYXZlbC1pbnN1cmFuY2VfcmVhZCBheGEtY2hfb3BlbmFwaV90cmF2ZWwtaW5zdXJhbmNlX3dyaXRlIiwiY2xpZW50X2lkIjoiYzBlNmFiNGIiLCJpc3MiOiJodHRwczovL2xvZ2luLmFjYy5heGEuY2giLCJqdGkiOiJSRVptRWpMTEhPR29Qdnk2SHFtSFVSQjd4cmlCOXIiLCJzdWIiOiJjMGU2YWI0YiIsInJsbSI6ImNsaWVudCIsImlhdCI6MTY4OTA1MzAyMSwiZXhwIjoxNjg5MDU0ODIxfQ.YDEl_N62zBppr50i3ZzploiYl8FDeCe0_cRmK_7FV2KWhLS4_hB3Zh2k5I5bNRv3hUS-0B3YHHplNNvv1kf7uZz29GhZQNMIWSP4W_BRu1zkTNuWdRkTejSTomXtkqccAhSSdXPSBiI0nOj-nULLTAKSr7z1WC5JB0pnXoSSMpDr6OfQXaH9Qpdl5Hb7-uEvfBScdzkW1hUsv6-nB6g1rRWDMU6gbYgV7HJxoy4IyzXsf1vwEoy0E2r27hp3Z0TORCuomcAprZm3MLLCKH2Tuwl56JThvGDpJMdKLopcMlSIFJhTmpGMAWoqUBGFyKI3LRugS9CXsg9Qcc8fmfRMgw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/axa-mtls/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"axa-mtls",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 3 - No User Mapping + Additional Dynamic Attributes",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6InFYckRhaTZsSmx4ZW9XYnlfTGlwM3JiMEpscyIsInBpLmF0bSI6Inl6ZGsifQ.eyJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIGF4YS1jaF9vcGVuYXBpX2Nhci1pbnN1cmFuY2VfcmVhZCBheGEtY2hfb3BlbmFwaV92ZWhpY2xlLWluZm9ybWF0aW9uX3JlYWQiLCJjbGllbnRfaWQiOiJtYTlveWNxbGVwIiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5hY2MuYXhhLmNoIiwianRpIjoiUHpWemYweEptWU9pVjJZUnJLaVVudTdBNGxvVzlJIiwic3ViIjoiTDAwMDAwMSIsInBhcnRfbnJfYW5zcF9wZXJzb24iOiIzOTQ0NDgyMiIsInBpLnNyaSI6InJlYUlvT0RoZGFrSm9OYWNwM04weVFRVTNHdy4uck9tSSIsInBhcnRfbnJfb3JnIjoiMjgwMjE5MzciLCJleHAiOjE2ODkwNzE2MTd9.JwlcKxsi7jLwQbBgu62PqYjs6w45IIFi0QU3oX0LaAd3oI8ZNPcGhCQBZOTgGdaLjW5BSYZqWgLo9W-pO4o0ArFJaFq7TTkmU_MBWwouaUz3GH8-JKvrkpba5WKPm_Cx8KjktXVZQyGD8sIikV_u965Ohws8Fg1dBUrulrhJKMkw_0cyKqYxBBpF-kYMODN9-WjyQU-5KcNEgjfoYuJ941JkIm83_G0yoAUUSAhLlpc2-eRcUIaMXfeSBoxHBc5tihWoSv3g9-wea__ceQL--uvg0XkroRYPIyG1Zoc6udnjkR7RXdlCHzs_aW_kz7pxj398GbO_pcvvKn2aBd7Amg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 4 - API KEY",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "{{$randomUUID}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/axa-mtls/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"axa-mtls",
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Use Case 5 - mTLS",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:443",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "443"
+				}
+			},
+			"response": []
+		}
+	]
+}
