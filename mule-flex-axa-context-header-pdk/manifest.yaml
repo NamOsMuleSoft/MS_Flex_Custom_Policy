@@ -4,7 +4,7 @@
 apiVersion: gateway.mulesoft.com/v1alpha1
 kind: Extension
 metadata:
-  name: axa-context-header-policy
+  name: axa-context-header
 spec:
   extends:
     - name: extension-definition
