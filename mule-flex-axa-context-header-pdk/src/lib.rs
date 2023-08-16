@@ -12,6 +12,7 @@ use pdk::api::classy::Configuration;
 use pdk_core::classy::event::EventData;
 use pdk_core::policy_context::PolicyContext;
 use regex::Regex;
+use serde_json::json;
 use crate::config::Config;
 use crate::jwt::{AccessTokenPayload, JwtClaims};
 
@@ -35,26 +36,44 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
     // Use case 4
     // if the input has the api key header, set the client_id claim with it
     if let Some(api_key) = event.header(API_KEY_HEADER_NAME) {
-        claims.custom.initial_client_id = api_key;
+        claims.custom.client_id = api_key;
     }
 
     // Use case 5
     // If the input is client certificate, update the client_id claim with the cert subject
     update_with_mtls_context(&mut claims);
 
+    update_configured_parameters(&mut claims, &event, &config);
+
+    
     // generate the axa-context token from resulting claims
     let token = generate_jwt(claims, &config.private_key);
+
     event.add_header(AXA_CONTEXT_HEADER_NAME, &token);
 
 }
 
+fn update_configured_parameters(claims: &mut JWTClaims<JwtClaims>, event: &EventData<'_, RequestHeaders>, config: &Config) {
+    
+    claims.custom.issuer = config.issuer.clone();
+
+    claims.custom.audience = match event.header(&config.audience_header_name) {
+        Some(value) => {Some(value)},
+        None => {
+            info!("header {} not available, using 'user-agent' as default", config.audience_header_name);
+            event.header("user-agent")
+        }
+    };
+}
 
 fn update_with_mtls_context(claims: &mut JWTClaims<JwtClaims>) {
     let conn_props = <dyn PolicyContext>::default().connection_properties();
 
     // if mTLS context is present then initialize the client_id with the cert subject CN
     if let Some(subject) = conn_props.read_property(&["connection","subject_peer_certificate"]) {
-        claims.custom.initial_client_id = String::from_utf8(subject).unwrap();
+        claims.custom.client_id = String::from_utf8(subject).unwrap();
+        claims.custom.expiration = None;
+        claims.expires_at = None;
     };
 }
 

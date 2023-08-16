@@ -7,4 +7,7 @@ pub struct Config {
 
     #[serde(alias = "privateKey")]
     pub private_key: String,
+    
+    #[serde(alias = "audienceHeaderName")]
+    pub audience_header_name: String
 }

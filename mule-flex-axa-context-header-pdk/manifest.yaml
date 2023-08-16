@@ -15,6 +15,8 @@ spec:
       type: string
     privateKey:
       type: string
+    audience_header_name:
+      type: string
     #Required fields for wasm based policies
     rootId:
       type: string
@@ -25,3 +27,4 @@ spec:
   required:
     - issuer
     - privateKey
+    - audience_header_name

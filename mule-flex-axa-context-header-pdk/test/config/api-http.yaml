@@ -16,7 +16,8 @@ spec:
     - policyRef:
         name: axa-context-header
       config:
-        issuer: "The Issuer"
+        issuer: "MuleSoft Flex Gateway"
+        audience_header_name: "user-agent"
         privateKey: |
           -----BEGIN PRIVATE KEY-----
           MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCovMxQ0coFuxXf

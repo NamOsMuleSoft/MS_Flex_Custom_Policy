@@ -42,11 +42,13 @@ dependencies = [
  "base64",
  "jwt-simple",
  "log",
+ "oorandom",
  "pdk",
  "pdk-core",
  "regex",
  "serde",
  "serde_json",
+ "uuid",
 ]
 
 [[package]]
