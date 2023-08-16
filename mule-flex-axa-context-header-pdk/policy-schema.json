@@ -7,18 +7,23 @@
         "title": "Issuer",
         "type": "string"
       },
-      "private_key": {
-        "title": "private_key",
+      "privateKey": {
+        "title": "Signing Private Key",
         "type": "string",
         "@context": {
           "@characteristics": [
             "security:sensitive"
           ]
         }
+      },
+      "audienceHeaderName": {
+        "title": "Audience Header Name",
+        "type": "string",
+        "default": "user-agent"
       }
     },
     "required": [
-      "issuer","private_key"
+      "issuer", "privateKey", "audienceHeaderName"
     ],
     "unevaluatedProperties": false,
     "@context": {
