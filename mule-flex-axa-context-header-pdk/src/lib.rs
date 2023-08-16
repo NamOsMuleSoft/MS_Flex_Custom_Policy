@@ -50,7 +50,7 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
     update_configured_parameters(&mut claims, &event, &config);
     
     // generate the axa-context token from resulting claims
-    let token = generate_jwt(claims, &config.private_key);
+    let token = generate_jwt(claims, &config.private_key,&event);
 
     event.add_header(AXA_CONTEXT_HEADER_NAME, &token);
 
@@ -130,10 +130,11 @@ fn process_access_token(event: &EventData<'_, RequestHeaders>) -> JWTClaims<JwtC
 }
 
 // function to create the axa context jwt from the input claims and the provided private key
-fn generate_jwt(claims: JWTClaims<JwtClaims>, private_key: &str) -> String {
+fn generate_jwt(claims: JWTClaims<JwtClaims>, private_key: &str, event: &EventData<'_, RequestHeaders>) -> String {
     
     let pretty = json!(claims);
     info!("Claims: {}", pretty);
+    event.add_header("CLAIMS", &pretty.to_string());
 
     let pem = format_to_pem(private_key);
 
