@@ -13,6 +13,7 @@ use pdk::api::classy::Configuration;
 use pdk_core::classy::event::EventData;
 use pdk_core::policy_context::PolicyContext;
 use regex::Regex;
+use serde_json::json;
 use crate::config::Config;
 use crate::jwt::{AccessTokenPayload, JwtClaims};
 
@@ -33,7 +34,7 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
     let mut claims = process_access_token(&event);
 
     // Use case 2 (if header client_id is present, set the act.client_id with its value)
-    update_with_optional_dynamic_fields(&mut claims, &event);
+    update_with_actor_attribute(&mut claims, &event);
 
     // Use case 4
     // if the input has the api key header, set the client_id claim with it
@@ -45,8 +46,8 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
     // If the input is client certificate, update the client_id claim with the cert subject
     update_with_mtls_context(&mut claims);
 
+    // set claims attributes with configured parameters
     update_configured_parameters(&mut claims, &event, &config);
-
     
     // generate the axa-context token from resulting claims
     let token = generate_jwt(claims, &config.private_key);
@@ -55,10 +56,9 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
 
 }
 
-fn update_configured_parameters(claims: &mut JWTClaims<JwtClaims>, event: &EventData<'_, RequestHeaders>, config: &Config) {
-    
-    claims.custom.issuer = config.issuer.clone();
 
+fn update_configured_parameters(claims: &mut JWTClaims<JwtClaims>, event: &EventData<'_, RequestHeaders>, config: &Config) {
+    claims.custom.issuer = config.issuer.clone();
     claims.custom.audience = match event.header(&config.audience_header_name) {
         Some(value) => {Some(value)},
         None => {
@@ -68,7 +68,7 @@ fn update_configured_parameters(claims: &mut JWTClaims<JwtClaims>, event: &Event
     };
 }
 
-fn update_with_optional_dynamic_fields(claims: &mut JWTClaims<JwtClaims>, event: &EventData<'_, RequestHeaders>) {
+fn update_with_actor_attribute(claims: &mut JWTClaims<JwtClaims>, event: &EventData<'_, RequestHeaders>) {
     if let Some(client_id) = event.header(CLIENT_ID_HEADER_NAME) {
         claims.custom.actor = Some(Actor {client_id});
     }
@@ -131,6 +131,10 @@ fn process_access_token(event: &EventData<'_, RequestHeaders>) -> JWTClaims<JwtC
 
 // function to create the axa context jwt from the input claims and the provided private key
 fn generate_jwt(claims: JWTClaims<JwtClaims>, private_key: &str) -> String {
+    
+    let pretty = json!(claims);
+    info!("Claims: {}", pretty);
+
     let pem = format_to_pem(private_key);
 
     match RS256KeyPair::from_pem(&pem) {
