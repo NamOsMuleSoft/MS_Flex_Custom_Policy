@@ -4,6 +4,7 @@ mod config;
 mod jwt;
 
 use anyhow::Result;
+use jwt::Actor;
 use jwt_simple::prelude::{Claims, Duration, RS256KeyPair, RSAKeyPairLike, JWTClaims};
 use log::info;
 use pdk::api::classy::bootstrap::Launcher;
@@ -12,13 +13,13 @@ use pdk::api::classy::Configuration;
 use pdk_core::classy::event::EventData;
 use pdk_core::policy_context::PolicyContext;
 use regex::Regex;
-use serde_json::json;
 use crate::config::Config;
 use crate::jwt::{AccessTokenPayload, JwtClaims};
 
 const ACCESS_TOKEN_HEADER_NAME: &str = "access_token";
 const API_KEY_HEADER_NAME: &str = "api-key";
 const AXA_CONTEXT_HEADER_NAME: &str = "X-AXA-CONTEXT";
+const CLIENT_ID_HEADER_NAME: &str = "client_id";
 
 
 async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
@@ -31,7 +32,8 @@ async fn filter(exchange: Exchange<RequestHeaders>, config: &Config) {
     // process access token header
     let mut claims = process_access_token(&event);
 
-    // *** Use case 2 not clear *** //
+    // Use case 2 (if header client_id is present, set the act.client_id with its value)
+    update_with_optional_dynamic_fields(&mut claims, &event);
 
     // Use case 4
     // if the input has the api key header, set the client_id claim with it
@@ -66,6 +68,15 @@ fn update_configured_parameters(claims: &mut JWTClaims<JwtClaims>, event: &Event
     };
 }
 
+fn update_with_optional_dynamic_fields(claims: &mut JWTClaims<JwtClaims>, event: &EventData<'_, RequestHeaders>) {
+    if let Some(client_id) = event.header(CLIENT_ID_HEADER_NAME) {
+        claims.custom.actor = Some(Actor {client_id});
+    }
+
+}
+
+
+// updates the claims with mTLS subject
 fn update_with_mtls_context(claims: &mut JWTClaims<JwtClaims>) {
     let conn_props = <dyn PolicyContext>::default().connection_properties();
 
